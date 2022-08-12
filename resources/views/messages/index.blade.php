@@ -57,9 +57,10 @@
             <table class="table table-report -mt-2">
                 <thead>
                     <tr>
-
-                        <th class="whitespace-no-wrap">USER</th>
-                        <th class="text-center whitespace-no-wrap">DELIVERY DATE </th>
+                        @if(auth()->user()->is_admin)
+                        <th class="whitespace-no-wrap">USER'S FULL NAME</th>
+                        @endif
+                        <th class="text-center whitespace-no-wrap">DATE & TIME </th>
                         <th class=" whitespace-no-wrap">MESSAGE</th>
                     </tr>
                 </thead>
@@ -67,14 +68,17 @@
                     @foreach($messages as $key => $message)
                     <tr class="intro-x">
 
+                        @if(auth()->user()->is_admin)
                         <td class="w-40">
                             <a href="" class="font-medium whitespace-no-wrap">
                                 {{$message->user->name}}</a>
                             <div class="text-gray-600 text-xs whitespace-no-wrap">{{$message->user->email}} | {{$message->user->phone}}</div>
                         </td>
+                        @endif
+
                         <td class="text-center">{{$message->created_at}}</td>
-                        <td >
-                            <div  class="font-medium whitespace-no-wrap"> {{$message->message}} </div>
+                        <td>
+                            <div class="font-medium whitespace-no-wrap"> {{$message->message}} </div>
                         </td>
 
                     </tr>
